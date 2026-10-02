@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-02T07:47:29.482Z",
+  "event": "upload-rejected",
+  "package": "dawdawd",
+  "version": "1.0.0",
+  "sha256": "126c76f28e00fc20fe1e93358bfbe5f818d60c509f1055a7454c8b578aeefe40",
+  "findings": [
+    "reverse-shell",
+    "sudoers"
+  ]
+}
