@@ -1,0 +1,78 @@
+# Scorpio deep security scan — runs free on GitHub Actions for this public registry repo.
+# Job 1 has read-only permissions and no secrets; uploaded packages are only ever
+# unpacked inside a no-network, read-only, unprivileged container and never executed.
+# Job 2 (contents: write) only applies the verdict file produced by job 1.
+name: scorpio-scan
+on:
+  push:
+    branches: [main]
+    paths: ["index/**"]
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+concurrency:
+  group: scorpio-scan
+  cancel-in-progress: false
+permissions: {}
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    outputs:
+      count: ${{ steps.pending.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - id: pending
+        run: |
+          node .scorpio/pending.mjs > pending.json
+          echo "count=$(node -e "console.log(require('./pending.json').length)")" >> "$GITHUB_OUTPUT"
+          cat pending.json
+      - name: Install free scanners (ClamAV, YARA, Semgrep, Bandit, pip-audit, Trivy, Gitleaks)
+        if: steps.pending.outputs.count != '0'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq clamav yara jq >/dev/null
+          sudo systemctl stop clamav-freshclam 2>/dev/null || true
+          sudo freshclam --quiet || echo "freshclam failed; using bundled signatures"
+          pipx install semgrep >/dev/null; pipx install bandit >/dev/null; pipx install pip-audit >/dev/null
+          curl -sSfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin >/dev/null
+          GL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.assets[] | select(.name | test("linux_x64.tar.gz$")) | .browser_download_url')
+          curl -sSL "$GL" | sudo tar -xz -C /usr/local/bin gitleaks
+          docker pull -q alpine:3.20
+      - name: Scan in isolated sandbox
+        if: steps.pending.outputs.count != '0'
+        run: bash .scorpio/scan.sh pending.json verdicts.json
+      - uses: actions/upload-artifact@v4
+        if: steps.pending.outputs.count != '0'
+        with:
+          name: verdicts
+          path: verdicts.json
+          retention-days: 7
+  verdict:
+    needs: scan
+    if: needs.scan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verdicts
+      - name: Apply verdicts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "scorpio-scan"
+          git config user.email "scorpio-scan@users.noreply.github.com"
+          node .scorpio/apply.mjs verdicts.json
+          git add -A index events files
+          git diff --cached --quiet && exit 0
+          git commit -m "scorpio scan verdicts [scan]"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+          node .scorpio/apply.mjs verdicts.json --releases
