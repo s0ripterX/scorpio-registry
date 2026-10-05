@@ -12,15 +12,15 @@
       "sha256": "e943e41fe8f1a24004bc4b27107be0c43b1424421027f533ad9e4b0b88a6e62c",
       "size": 77998,
       "publishedAt": "2026-10-05T07:06:38.423Z",
-      "state": "scanning",
+      "state": "approved",
       "signature": "L8/rhgzH6bWZfaf98W2bLykKBIwL89Hc6oRudozQNtVWFQA0rZi9JOtB6ZQI9QH66NFDDh+CLhEi0+UqJTprCw==",
       "findings": [],
       "scan": {
-        "level": "static",
-        "at": "2026-10-05T07:06:38.423Z"
+        "level": "deep",
+        "at": "2026-10-05T07:08:12.737Z"
       }
     }
   ],
   "createdAt": "2026-10-05T07:06:38.423Z",
-  "updatedAt": "2026-10-05T07:06:38.423Z"
+  "updatedAt": "2026-10-05T07:08:12.737Z"
 }
