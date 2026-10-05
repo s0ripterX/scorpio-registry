@@ -1,0 +1,48 @@
+{
+ "version": 1,
+ "engineTag": "b11405",
+ "brain": {
+  "file": "brain",
+  "parts": 24,
+  "sha256": "1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32",
+  "size": 491400064,
+  "name": "Qwen2.5-Coder 0.5B Instruct Q4_K_M"
+ },
+ "engines": {
+  "macos-arm64": {
+   "file": "engine-macos-arm64.tar.gz",
+   "parts": 1,
+   "sha256": "3b0c479463e03aa0431f911241c53bdaf9ef058f61bc23e6816168cf6042a983",
+   "size": 11965274,
+   "ext": "tar.gz"
+  },
+  "macos-x64": {
+   "file": "engine-macos-x64.tar.gz",
+   "parts": 1,
+   "sha256": "b4ee846e57303a6c707b979b6c1bb50d80b151ae80075ece9dad6fab43a4e7ae",
+   "size": 11482116,
+   "ext": "tar.gz"
+  },
+  "ubuntu-x64": {
+   "file": "engine-ubuntu-x64.tar.gz",
+   "parts": 1,
+   "sha256": "4102e876fe5aa39b1de2234fa5f84fdf06eed976ccf0f5ff8166cd750c646c1f",
+   "size": 17679603,
+   "ext": "tar.gz"
+  },
+  "win-cpu-arm64": {
+   "file": "engine-win-cpu-arm64.zip",
+   "parts": 1,
+   "sha256": "7b695b8a28a29170dae0946c8367b443667f02f31e1d921608168836a4cfd68b",
+   "size": 12221873,
+   "ext": "zip"
+  },
+  "win-cpu-x64": {
+   "file": "engine-win-cpu-x64.zip",
+   "parts": 1,
+   "sha256": "8c32aa9b9556e2daf8e35f2f500f9dd5051944723fa3828fed82fd21167b7f0b",
+   "size": 19390996,
+   "ext": "zip"
+  }
+ }
+}
