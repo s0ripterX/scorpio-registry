@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "engineTag": "b11405",
  "brain": {
   "file": "brain",
@@ -43,6 +43,22 @@
    "sha256": "8c32aa9b9556e2daf8e35f2f500f9dd5051944723fa3828fed82fd21167b7f0b",
    "size": 19390996,
    "ext": "zip"
+  }
+ },
+ "brains": {
+  "lite": {
+   "file": "brain",
+   "parts": 24,
+   "sha256": "1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32",
+   "size": 491400064,
+   "name": "Qwen2.5-Coder 0.5B Instruct Q4_K_M"
+  },
+  "standard": {
+   "file": "brain15",
+   "parts": 54,
+   "sha256": "cc324af070c2ecbfd324a30884d2f951a7ff756aba85cb811a6ec436933bb046",
+   "size": 1117320768,
+   "name": "Qwen2.5-Coder 1.5B Instruct Q4_K_M"
   }
  }
 }
