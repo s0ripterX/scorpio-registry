@@ -1,0 +1,26 @@
+{
+  "name": "xsdadwadawd",
+  "description": "dadwadawdadawd",
+  "publicKey": "RYme5d/6MJvLTQli4qpix+lIbL5Z4j/t9EZU614kc84=",
+  "publisherId": "pub_197804cc1566af3b",
+  "latest": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "file": "latest__8_.zip",
+      "url": "https://raw.githubusercontent.com/s0ripterX/scorpio-registry/main/files/xsdadwadawd/1.0.0/latest__8_.zip",
+      "sha256": "e943e41fe8f1a24004bc4b27107be0c43b1424421027f533ad9e4b0b88a6e62c",
+      "size": 77998,
+      "publishedAt": "2026-10-05T07:06:38.423Z",
+      "state": "scanning",
+      "signature": "L8/rhgzH6bWZfaf98W2bLykKBIwL89Hc6oRudozQNtVWFQA0rZi9JOtB6ZQI9QH66NFDDh+CLhEi0+UqJTprCw==",
+      "findings": [],
+      "scan": {
+        "level": "static",
+        "at": "2026-10-05T07:06:38.423Z"
+      }
+    }
+  ],
+  "createdAt": "2026-10-05T07:06:38.423Z",
+  "updatedAt": "2026-10-05T07:06:38.423Z"
+}
